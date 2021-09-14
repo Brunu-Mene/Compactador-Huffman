@@ -19,11 +19,8 @@ int main(int argc, char **argv)
     char *cod = inicializaString(9);
     preencheTabela(tabelaHuff, arvHuff, cod, 0);
     liberaString(cod);
-    //imprimeArv(arvHuff);
-    char *tes = strdup(tabelaHuff['g']);
-    printf("%ld - %s\n",strlen(tabelaHuff['g']),tes);
-    liberaString(tes);
 
+    geraSaida(tabelaHuff,argv[1]);
 
     liberaTabela(tabelaHuff);
     liberaArvore(arvHuff);

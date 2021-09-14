@@ -22,3 +22,20 @@ void liberaTabela(char **tabelaHuff){
     }
     free(tabelaHuff);
 }
+
+void geraSaida(char **tabelaHuff, char *nomeArq){
+    char adress[50] = "data/";
+    char c;
+    strcat(adress,nomeArq);
+    FILE *arq = fopen(adress,"r");
+    if(arq == NULL){
+        printf("Arquivo não encontrado!\n");
+        exit(1);
+    }
+    while(fscanf(arq,"%c",&c) == 1){
+        printf("%s ",tabelaHuff[c]);
+    }
+    printf("\n");
+
+    fclose(arq);
+}

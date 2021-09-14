@@ -9,5 +9,6 @@ char **inicializaTabela();
 char *inicializaString(int tam);
 void liberaString(char *string);
 void liberaTabela(char **tabelaHuff);
+void geraSaida(char **tabelaHuff, char *nomeArq);
 
 #endif
