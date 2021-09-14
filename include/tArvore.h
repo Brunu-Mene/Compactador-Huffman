@@ -16,7 +16,7 @@ int retornaQtd(tArvore *arv);
 tArvore *preencheArvore(tArvore *arv,tArvore *esq, tArvore *dir, int qtd);
 void incrementaContador(tArvore *arv);
 void geraSaida(tArvore *arvHuff, char *nomeArq);
-void preencheTabela(unsigned char **tabela, tArvore *arvHuff,unsigned char *cod, int id);
+void preencheTabela(char **tabela, tArvore *arvHuff,char *cod, int id);
 
 //test
 void imprimeArv(tArvore *arv);

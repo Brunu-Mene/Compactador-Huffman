@@ -1,5 +1,6 @@
 #include "../include/tArvore.h"
 #include "../include/tLista.h"
+#include "../include/tTabelaHuff.h"
 
 int main(int argc, char **argv)
 {
@@ -10,21 +11,21 @@ int main(int argc, char **argv)
     }
     tLista *list = iniciaLista();
     preencheLista(list, argv[1]);
-    //test
-    //printaLista(list);
-
     list = combinaListArv(list);
     tArvore *arvHuff = retornaPriArv(list);
     liberaLista(list);
-    unsigned char **tabelaHuff = malloc(sizeof(char *) * 256);
-    for(int i=0; i<256; i++){
-        tabelaHuff[i] = malloc(sizeof(char)*8);//puta que pariu ???
-    }
-    unsigned char *cod = malloc(sizeof(char) * 8);
+
+    char **tabelaHuff = inicializaTabela();
+    char *cod = inicializaString(9);
     preencheTabela(tabelaHuff, arvHuff, cod, 0);
-    imprimeArv(arvHuff);
-    printf("\n%ld-%s\n",strlen(tabelaHuff['f']),tabelaHuff['f']);
-    
+    liberaString(cod);
+    //imprimeArv(arvHuff);
+    char *tes = strdup(tabelaHuff['g']);
+    printf("%ld - %s\n",strlen(tabelaHuff['g']),tes);
+    liberaString(tes);
+
+
+    liberaTabela(tabelaHuff);
     liberaArvore(arvHuff);
     return 0;
 }

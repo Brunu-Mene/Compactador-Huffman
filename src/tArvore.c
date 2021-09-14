@@ -1,4 +1,5 @@
 #include "../include/tArvore.h"
+#include "../include/tTabelaHuff.h"
 
 struct Arvore{
     tArvore *esq;
@@ -60,12 +61,14 @@ tArvore *procuraCaracter(tArvore *arv,char c){
     else return procuraCaracter(arv->esq,c);
 }
 
-void preencheTabela(unsigned char **tabela, tArvore *arvHuff,unsigned char *cod, int id){
+void preencheTabela(char **tabela, tArvore *arvHuff,char *cod, int id){
     if(arvHuff == NULL) return;
     else if(arvHuff->esq == NULL && arvHuff->dir == NULL){
+        tabela[arvHuff->c] = inicializaString(id+1);
         for(int i=0; i<id ;i++){
             tabela[arvHuff->c][i] = cod[i];
         }
+        tabela[arvHuff->c][id] = '\0';
     }else{
         cod[id] = '0';
         preencheTabela(tabela,arvHuff->esq,cod,id+1);
