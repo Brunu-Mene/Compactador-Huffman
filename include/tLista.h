@@ -13,13 +13,12 @@ void insereLista(tLista *list,tArvore *arv);
 void procuraElemento(tLista *list, char c);
 void preencheLista(tLista *list, char *nomeArq);
 void ordenaLista(tLista *list);
-tLista *combinaArvores(tLista *list);
+tLista *combinaListArv(tLista *list);
+tArvore *retornaPriArv(tLista *list);
 
-void printaLista(tLista *list);
 void liberaLista(tLista *list);
-static void liberaListaSemArvore(tLista *list);
 
-
-void printaListaTest(tLista *list);
+//função de test
+void printaLista(tLista *list);
 
 #endif

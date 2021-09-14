@@ -5,6 +5,7 @@ typedef struct Arvore tArvore;
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "tBitmap.h"
 
 tArvore *inicializaArv(char c);
@@ -14,8 +15,10 @@ char retornaCaracter(tArvore *arv);
 int retornaQtd(tArvore *arv);
 tArvore *preencheArvore(tArvore *arv,tArvore *esq, tArvore *dir, int qtd);
 void incrementaContador(tArvore *arv);
+void geraSaida(tArvore *arvHuff, char *nomeArq);
+void preencheTabela(unsigned char **tabela, tArvore *arvHuff,unsigned char *cod, int id);
 
-
+//test
 void imprimeArv(tArvore *arv);
 
 #endif

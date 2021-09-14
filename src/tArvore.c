@@ -25,7 +25,6 @@ tArvore *inicializaArvVazia(){
     return arv;
 }
 
-
 tArvore *preencheArvore(tArvore *arv,tArvore *esq, tArvore *dir, int qtd){
     arv->dir = dir;
     arv->esq = esq;
@@ -54,8 +53,45 @@ void liberaArvore(tArvore *arv){
     free(arv);
 }
 
+tArvore *procuraCaracter(tArvore *arv,char c){
+    if(arv == NULL) return NULL;
+
+    if(arv->c == c) return arv;
+    else return procuraCaracter(arv->esq,c);
+}
+
+void preencheTabela(unsigned char **tabela, tArvore *arvHuff,unsigned char *cod, int id){
+    if(arvHuff == NULL) return;
+    else if(arvHuff->esq == NULL && arvHuff->dir == NULL){
+        for(int i=0; i<id ;i++){
+            tabela[arvHuff->c][i] = cod[i];
+        }
+    }else{
+        cod[id] = '0';
+        preencheTabela(tabela,arvHuff->esq,cod,id+1);
+        cod[id] = '1';
+        preencheTabela(tabela,arvHuff->dir,cod,id+1);
+    }
+}
+
+void geraSaida(tArvore *arvHuff, char *nomeArq){
+    char adress[50] = "data/";
+    char c;
+    strcat(adress,nomeArq);
+    FILE *arq = fopen(adress,"r");
+    if(arq == NULL){
+        printf("Arquivo não encontrado!\n");
+        exit(1);
+    }
+    while(fscanf(arq,"%c",&c) == 1){
+        tArvore *arv = procuraCaracter(arvHuff,c);
+    }
+
+    fclose(arq);
+}
 
 
+//test
 void imprimeArv(tArvore *arv){
     printf("<");
     if(arv != NULL){

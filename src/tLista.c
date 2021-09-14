@@ -74,7 +74,7 @@ void ordenaLista(tLista *list){
     }
 }
 
-tLista *combinaArvores(tLista *list){
+tLista *combinaListArv(tLista *list){
     if(list->pri->prox == NULL) return list;
 
     tLista *novaList = iniciaLista();
@@ -83,7 +83,6 @@ tLista *combinaArvores(tLista *list){
         if(p->prox == NULL){
             insereLista(novaList,p->arv);
         }else{
-            //talvez fazer outra função para nao inicializar a arvore com caracter
             tArvore *arv = inicializaArvVazia();
             arv = preencheArvore(arv,p->arv,p->prox->arv,retornaQtd(p->arv)+retornaQtd(p->prox->arv));
             insereLista(novaList,arv);
@@ -91,8 +90,8 @@ tLista *combinaArvores(tLista *list){
         }
     }
 
-    liberaListaSemArvore(list);
-    if(novaList->pri->prox!=NULL) return combinaArvores(novaList);
+    liberaLista(list);
+    if(novaList->pri->prox!=NULL) return combinaListArv(novaList);
     else return novaList;
 }
 
@@ -100,7 +99,6 @@ void liberaLista(tLista *list){
     tCelula *p = list->pri;
     tCelula *t;
     while(p!=NULL){
-        liberaArvore(p->arv);
         t = p->prox;
         free(p);
         p = t;
@@ -108,23 +106,13 @@ void liberaLista(tLista *list){
     free(list);
 }
 
-static void liberaListaSemArvore(tLista *list){
-    tCelula *p = list->pri;
-    tCelula *t;
-    while(p!=NULL){
-        t = p->prox;
-        free(p);
-        p = t;
-    }
-    free(list);
+tArvore *retornaPriArv(tLista *list){
+    return list->pri->arv;
 }
 
+//função de test
 void printaLista(tLista *list){
     for(tCelula *p = list->pri; p!=NULL ;p=p->prox){
         printf("%c %d\n",retornaCaracter(p->arv),retornaQtd(p->arv));
     }
-}
-
-void printaListaTest(tLista *list){
-    imprimeArv(list->pri->arv);
 }

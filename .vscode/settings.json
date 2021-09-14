@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "tarvore.h": "c"
+        "tarvore.h": "c",
+        "tlista.h": "c"
     }
 }
