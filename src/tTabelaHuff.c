@@ -1,8 +1,8 @@
 #include "../include/tTabelaHuff.h"
 
 char **inicializaTabela(){
-    char **tabelaHuff = (char **)malloc(256*sizeof(char *));
-    for(int i=0; i<256 ;i++){
+    char **tabelaHuff = (char **)malloc(257*sizeof(char *));
+    for(int i=0; i<257 ;i++){
         tabelaHuff[i] = NULL;
     }
     return tabelaHuff;
@@ -17,7 +17,7 @@ void liberaString(char *string){
 }
 
 void liberaTabela(char **tabelaHuff){
-    for(int i=0; i<256 ;i++){
+    for(int i=0; i<257 ;i++){
         if(tabelaHuff[i]!=NULL)
             free(tabelaHuff[i]);
     }

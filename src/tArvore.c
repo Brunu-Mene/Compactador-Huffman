@@ -8,12 +8,12 @@ struct Arvore{
     int qtd;
 };
 
-tArvore *inicializaArv(char c){
+tArvore *inicializaArv(char c, int qtd){
     tArvore *arv = (tArvore *) malloc(sizeof(tArvore));
     arv->esq = NULL;
     arv->dir = NULL;
     arv->c = c;
-    arv->qtd = 1;
+    arv->qtd = qtd;
 
     return arv;
 }
@@ -39,10 +39,6 @@ char retornaCaracter(tArvore *arv){
 }
 int retornaQtd(tArvore *arv){
     return arv->qtd;
-}
-
-void incrementaContador(tArvore *arv){
-    arv->qtd++;
 }
 
 void liberaArvore(tArvore *arv){

@@ -19,25 +19,16 @@ tLista *iniciaLista(){
     return list;
 }
 
-void insereLista(tLista *list,tArvore *arv){
-    tCelula *novaCel = (tCelula *)malloc(sizeof(tCelula));
-    novaCel->arv = arv;
-    novaCel->prox = NULL;
-
-    if(list->pri == NULL){
-        list->pri = novaCel;
-        list->ult = novaCel;
-    }else{
-        list->ult->prox = novaCel;
-        list->ult = novaCel;
-    }
-}
 void insereListaOrdenado(tLista *lista, tArvore *arv){
     tCelula *novaCel = (tCelula *)malloc(sizeof(tCelula));
     novaCel->arv = arv;
     novaCel->prox = NULL;
 
-    if(retornaQtd(arv) <= retornaQtd(lista->pri->arv)){
+    if(lista->pri == NULL){
+        lista->pri = novaCel;
+        lista->ult = novaCel;
+        return;
+    }else if(retornaQtd(arv) <= retornaQtd(lista->pri->arv)){
         novaCel->prox = lista->pri;
         lista->pri = novaCel;
         return;
@@ -60,20 +51,13 @@ void insereListaOrdenado(tLista *lista, tArvore *arv){
     }
 }
 
-void procuraElemento(tLista *list, char c){
-    for(tCelula *p = list->pri; p!=NULL ; p=p->prox){
-        if(retornaCaracter(p->arv) == c){
-            incrementaContador(p->arv);
-            return;
-        }
-    }
-    tArvore *arv = inicializaArv(c);
-    insereLista(list, arv);
-}
-
 void preencheLista(tLista *list, char *nomeArq){
     char adress[50] = "data/";
     char c;
+    int elementos[257];
+    for(int i=0; i<257 ;i++){
+        elementos[i] = 0;
+    }
     strcat(adress,nomeArq);
     FILE *arq = fopen(adress,"r");
     if(arq == NULL){
@@ -81,13 +65,18 @@ void preencheLista(tLista *list, char *nomeArq){
         exit(1);
     }
     while(fscanf(arq,"%c",&c) == 1){
-        procuraElemento(list,c);
+        elementos[c]++;
     }
-
+    for(int i=0; i<257 ;i++){
+        if(elementos[i]!=0){
+            tArvore *arv = inicializaArv(i,elementos[i]);
+            insereListaOrdenado(list,arv);
+        }
+    }
     fclose(arq);
 }
 
-void ordenaLista(tLista *list){
+/*void ordenaLista(tLista *list){
     tCelula *p,*j;
     tArvore *aux;
     for(j=list->pri->prox; j!=NULL ;j=j->prox){
@@ -99,16 +88,11 @@ void ordenaLista(tLista *list){
             }
         }
     }
-}
+}*/
 
 void combinaListArv(tLista *list){
-    //printaLista(list);
-    //printf("\n");
     tCelula *p;
-    ordenaLista(list);
     for(p=list->pri; p->prox!=NULL ;p=p){
-        //printaLista(list);
-        //printf("\n");
         tArvore *arv = inicializaArvVazia();
         arv = preencheArvore(arv,p->arv,p->prox->arv,retornaQtd(p->arv)+retornaQtd(p->prox->arv));
         insereListaOrdenado(list,arv);
@@ -122,27 +106,6 @@ void combinaListArv(tLista *list){
         }
     }
 }
-
-/*tLista *combinaListArv(tLista *list){
-    if(list->pri->prox == NULL) return list;
-
-    tLista *novaList = iniciaLista();
-    ordenaLista(list);
-    for(tCelula *p=list->pri; p!=NULL ;p=p->prox){
-        if(p->prox == NULL){
-            insereLista(novaList,p->arv);
-        }else{
-            tArvore *arv = inicializaArvVazia();
-            arv = preencheArvore(arv,p->arv,p->prox->arv,retornaQtd(p->arv)+retornaQtd(p->prox->arv));
-            insereLista(novaList,arv);
-            p=p->prox;
-        }
-    }
-
-    liberaLista(list);
-    if(novaList->pri->prox!=NULL) return combinaListArv(novaList);
-    else return novaList;
-}*/
 
 void liberaLista(tLista *list){
     tCelula *p = list->pri;

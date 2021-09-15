@@ -9,16 +9,14 @@ typedef struct Lista tLista;
 #include "tArvore.h"
 
 tLista *iniciaLista();
-void insereLista(tLista *list,tArvore *arv);
-void procuraElemento(tLista *list, char c);
+void insereListaOrdenado(tLista *lista, tArvore *arv);
 void preencheLista(tLista *list, char *nomeArq);
-void ordenaLista(tLista *list);
 void combinaListArv(tLista *list);
 tArvore *retornaPriArv(tLista *list);
-
 void liberaLista(tLista *list);
 
 //função de test
+//void ordenaLista(tLista *list);
 void printaLista(tLista *list);
 
 #endif

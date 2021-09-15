@@ -12,12 +12,10 @@ int main(int argc, char **argv)
     preencheLista(list, argv[1]);
     combinaListArv(list);
     tArvore *arvHuff = retornaPriArv(list);
-    //imprimeArv(arvHuff);
-    //printf("\n");
     liberaLista(list);
 
     char **tabelaHuff = inicializaTabela();
-    char *cod = inicializaString(9);
+    char *cod = inicializaString(10);
     preencheTabela(tabelaHuff, arvHuff, cod, 0);
     liberaString(cod);
 
