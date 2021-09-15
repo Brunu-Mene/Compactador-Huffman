@@ -12,8 +12,8 @@ int main(int argc, char **argv)
     preencheLista(list, argv[1]);
     combinaListArv(list);
     tArvore *arvHuff = retornaPriArv(list);
-    imprimeArv(arvHuff);
-    printf("\n");
+    //imprimeArv(arvHuff);
+    //printf("\n");
     liberaLista(list);
 
     char **tabelaHuff = inicializaTabela();

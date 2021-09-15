@@ -32,6 +32,33 @@ void insereLista(tLista *list,tArvore *arv){
         list->ult = novaCel;
     }
 }
+void insereListaOrdenado(tLista *lista, tArvore *arv){
+    tCelula *novaCel = (tCelula *)malloc(sizeof(tCelula));
+    novaCel->arv = arv;
+    novaCel->prox = NULL;
+
+    if(retornaQtd(arv) <= retornaQtd(lista->pri->arv)){
+        novaCel->prox = lista->pri;
+        lista->pri = novaCel;
+        return;
+    }else if(retornaQtd(lista->ult->arv) < retornaQtd(arv)){
+        lista->ult->prox = novaCel;
+        lista->ult = novaCel;
+        return;
+    }
+    tCelula *p,*t;
+    t = lista->pri;
+    p = lista->pri->prox;
+    while(1){
+        if(retornaQtd(arv)<=retornaQtd(p->arv)){
+            t->prox = novaCel;
+            novaCel->prox = p;
+            return;
+        }
+        t=t->prox;
+        p=p->prox;
+    }
+}
 
 void procuraElemento(tLista *list, char c){
     for(tCelula *p = list->pri; p!=NULL ; p=p->prox){
@@ -75,12 +102,16 @@ void ordenaLista(tLista *list){
 }
 
 void combinaListArv(tLista *list){
+    //printaLista(list);
+    //printf("\n");
     tCelula *p;
+    ordenaLista(list);
     for(p=list->pri; p->prox!=NULL ;p=p){
-        ordenaLista(list);
+        //printaLista(list);
+        //printf("\n");
         tArvore *arv = inicializaArvVazia();
         arv = preencheArvore(arv,p->arv,p->prox->arv,retornaQtd(p->arv)+retornaQtd(p->prox->arv));
-        insereLista(list,arv);
+        insereListaOrdenado(list,arv);
         
         if(p->prox->prox != NULL){
             tCelula *aux = p->prox->prox;
@@ -131,6 +162,6 @@ tArvore *retornaPriArv(tLista *list){
 //função de test
 void printaLista(tLista *list){
     for(tCelula *p = list->pri; p!=NULL ;p=p->prox){
-        printf("%c %d\n",retornaCaracter(p->arv),retornaQtd(p->arv));
+        printf("%d ",retornaQtd(p->arv));
     }
 }
