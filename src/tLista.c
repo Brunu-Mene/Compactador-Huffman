@@ -74,7 +74,25 @@ void ordenaLista(tLista *list){
     }
 }
 
-tLista *combinaListArv(tLista *list){
+void combinaListArv(tLista *list){
+    tCelula *p;
+    for(p=list->pri; p->prox!=NULL ;p=p){
+        ordenaLista(list);
+        tArvore *arv = inicializaArvVazia();
+        arv = preencheArvore(arv,p->arv,p->prox->arv,retornaQtd(p->arv)+retornaQtd(p->prox->arv));
+        insereLista(list,arv);
+        
+        if(p->prox->prox != NULL){
+            tCelula *aux = p->prox->prox;
+            free(p->prox);
+            free(p);
+            p = aux;
+            list->pri = p;
+        }
+    }
+}
+
+/*tLista *combinaListArv(tLista *list){
     if(list->pri->prox == NULL) return list;
 
     tLista *novaList = iniciaLista();
@@ -93,7 +111,7 @@ tLista *combinaListArv(tLista *list){
     liberaLista(list);
     if(novaList->pri->prox!=NULL) return combinaListArv(novaList);
     else return novaList;
-}
+}*/
 
 void liberaLista(tLista *list){
     tCelula *p = list->pri;

@@ -4,15 +4,16 @@
 
 int main(int argc, char **argv)
 {
-    if (argc < 1)
-    {
+    if (argc < 1){
         printf("Numero de parametros incorreto!\n");
         exit(1);
     }
     tLista *list = iniciaLista();
     preencheLista(list, argv[1]);
-    list = combinaListArv(list);
+    combinaListArv(list);
     tArvore *arvHuff = retornaPriArv(list);
+    imprimeArv(arvHuff);
+    printf("\n");
     liberaLista(list);
 
     char **tabelaHuff = inicializaTabela();

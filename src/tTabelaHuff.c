@@ -18,7 +18,8 @@ void liberaString(char *string){
 
 void liberaTabela(char **tabelaHuff){
     for(int i=0; i<256 ;i++){
-        free(tabelaHuff[i]);
+        if(tabelaHuff[i]!=NULL)
+            free(tabelaHuff[i]);
     }
     free(tabelaHuff);
 }

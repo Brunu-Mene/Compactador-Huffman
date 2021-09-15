@@ -13,7 +13,7 @@ void insereLista(tLista *list,tArvore *arv);
 void procuraElemento(tLista *list, char c);
 void preencheLista(tLista *list, char *nomeArq);
 void ordenaLista(tLista *list);
-tLista *combinaListArv(tLista *list);
+void combinaListArv(tLista *list);
 tArvore *retornaPriArv(tLista *list);
 
 void liberaLista(tLista *list);
