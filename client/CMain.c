@@ -14,8 +14,8 @@ int main(int argc, char **argv)
     tArvore *arvHuff = retornaPriArv(list);
     liberaLista(list);
 
-    char **tabelaHuff = inicializaTabela();
-    char *cod = inicializaString(10);
+    unsigned char **tabelaHuff = inicializaTabela();
+    unsigned char *cod = inicializaString(altura(arvHuff)+1);
     preencheTabela(tabelaHuff, arvHuff, cod, 0);
     liberaString(cod);
 
@@ -23,5 +23,6 @@ int main(int argc, char **argv)
 
     liberaTabela(tabelaHuff);
     liberaArvore(arvHuff);
+
     return 0;
 }

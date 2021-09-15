@@ -5,10 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-char **inicializaTabela();
-char *inicializaString(int tam);
-void liberaString(char *string);
-void liberaTabela(char **tabelaHuff);
-void geraSaida(char **tabelaHuff, char *nomeArq);
+unsigned char **inicializaTabela();
+unsigned char *inicializaString(int tam);
+void liberaString(unsigned char *string);
+void liberaTabela(unsigned char **tabelaHuff);
+void geraSaida(unsigned char **tabelaHuff, char *nomeArq);
 
 #endif

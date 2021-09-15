@@ -1,22 +1,22 @@
 #include "../include/tTabelaHuff.h"
 
-char **inicializaTabela(){
-    char **tabelaHuff = (char **)malloc(257*sizeof(char *));
+unsigned char **inicializaTabela(){
+    unsigned char **tabelaHuff = (unsigned char **)malloc(257*sizeof(unsigned char *));
     for(int i=0; i<257 ;i++){
         tabelaHuff[i] = NULL;
     }
     return tabelaHuff;
 }
 
-char *inicializaString(int tam){
-    return (char *)malloc(sizeof(char)*tam);
+unsigned char *inicializaString(int tam){
+    return (unsigned char *)malloc(sizeof(unsigned char)*tam);
 }
 
-void liberaString(char *string){
+void liberaString(unsigned char *string){
     free(string);
 }
 
-void liberaTabela(char **tabelaHuff){
+void liberaTabela(unsigned char **tabelaHuff){
     for(int i=0; i<257 ;i++){
         if(tabelaHuff[i]!=NULL)
             free(tabelaHuff[i]);
@@ -24,9 +24,9 @@ void liberaTabela(char **tabelaHuff){
     free(tabelaHuff);
 }
 
-void geraSaida(char **tabelaHuff, char *nomeArq){
+void geraSaida(unsigned char **tabelaHuff, char *nomeArq){
     char adress[50] = "data/";
-    char c;
+    unsigned char c;
     strcat(adress,nomeArq);
     FILE *arq = fopen(adress,"r");
     if(arq == NULL){

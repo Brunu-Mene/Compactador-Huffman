@@ -53,7 +53,7 @@ void insereListaOrdenado(tLista *lista, tArvore *arv){
 
 void preencheLista(tLista *list, char *nomeArq){
     char adress[50] = "data/";
-    char c;
+    unsigned char c;
     int elementos[257];
     for(int i=0; i<257 ;i++){
         elementos[i] = 0;

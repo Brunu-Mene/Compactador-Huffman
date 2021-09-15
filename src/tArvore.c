@@ -4,11 +4,11 @@
 struct Arvore{
     tArvore *esq;
     tArvore *dir;
-    char c;
+    unsigned char c;
     int qtd;
 };
 
-tArvore *inicializaArv(char c, int qtd){
+tArvore *inicializaArv(unsigned char c, int qtd){
     tArvore *arv = (tArvore *) malloc(sizeof(tArvore));
     arv->esq = NULL;
     arv->dir = NULL;
@@ -26,6 +26,18 @@ tArvore *inicializaArvVazia(){
     return arv;
 }
 
+static int maior(int a, int b){
+    if(a > b) return a;
+
+    return b;
+}
+
+int altura(tArvore *arv){
+    if(arv == NULL) return -1;
+
+    return 1 + maior(altura(arv->esq),altura(arv->dir));
+}
+
 tArvore *preencheArvore(tArvore *arv,tArvore *esq, tArvore *dir, int qtd){
     arv->dir = dir;
     arv->esq = esq;
@@ -34,7 +46,7 @@ tArvore *preencheArvore(tArvore *arv,tArvore *esq, tArvore *dir, int qtd){
     return arv;
 }
 
-char retornaCaracter(tArvore *arv){
+unsigned char retornaCaracter(tArvore *arv){
     return arv->c;
 }
 int retornaQtd(tArvore *arv){
@@ -50,7 +62,7 @@ void liberaArvore(tArvore *arv){
     free(arv);
 }
 
-void preencheTabela(char **tabela, tArvore *arvHuff,char *cod, int id){
+void preencheTabela(unsigned char **tabela, tArvore *arvHuff,unsigned char *cod, int id){
     if(arvHuff == NULL) return;
     else if(arvHuff->esq == NULL && arvHuff->dir == NULL){
         tabela[arvHuff->c] = inicializaString(id+1);
