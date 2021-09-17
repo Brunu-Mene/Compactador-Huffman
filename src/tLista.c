@@ -76,20 +76,6 @@ void preencheLista(tLista *list, char *nomeArq){
     fclose(arq);
 }
 
-/*void ordenaLista(tLista *list){
-    tCelula *p,*j;
-    tArvore *aux;
-    for(j=list->pri->prox; j!=NULL ;j=j->prox){
-        for(p=list->pri; p->prox!=NULL ;p=p->prox){
-            if(retornaQtd(p->arv) > retornaQtd(p->prox->arv)){
-                aux = p->arv;
-                p->arv = p->prox->arv;
-                p->prox->arv = aux; 
-            }
-        }
-    }
-}*/
-
 void combinaListArv(tLista *list){
     tCelula *p;
     for(p=list->pri; p->prox!=NULL ;p=p){

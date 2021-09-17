@@ -15,7 +15,7 @@ int main(int argc, char **argv)
     liberaLista(list);
 
     unsigned char **tabelaHuff = inicializaTabela();
-    unsigned char *cod = inicializaString(altura(arvHuff)+1);
+    unsigned char *cod = inicializaString(altura(arvHuff)+2);
     preencheTabela(tabelaHuff, arvHuff, cod, 0);
     liberaString(cod);
 
