@@ -25,7 +25,7 @@ void liberaTabela(unsigned char **tabelaHuff){
     free(tabelaHuff);
 }
 
-void geraSaida(unsigned char **tabelaHuff, char *nomeArq){
+void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff){
     char adress[50] = "data/";
     unsigned char c;
     strcat(adress,nomeArq);
@@ -43,8 +43,18 @@ void geraSaida(unsigned char **tabelaHuff, char *nomeArq){
         printf("Erro na criação do arquivo binário de saida!\n");
         exit(1);
     }
+    geraCodigoArv(arvHuff,arqB);
+    fclose(arqB);
+    imprimeArv(arvHuff);
+    printf("\n");
+    FILE *arqBT = fopen("data/test.comp","r");
+    tArvore *newArv = recriaArvore(newArv,arqBT);
+    imprimeArv(newArv);
+    printf("\n");
+    liberaArvore(newArv);
+    fclose(arqBT);
 
-    char *MEME = calloc('0',sizeof(char)*500);
+    /*char *MEME = calloc('0',sizeof(char)*500);
     int i=0;
     while(fscanf(arqT,"%c",&c) == 1){
         int j=0;
@@ -53,7 +63,7 @@ void geraSaida(unsigned char **tabelaHuff, char *nomeArq){
             fwrite(tabelaHuff[c],(strlen(tabelaHuff[c])/8)+1,strlen(tabelaHuff[c]),arqB);
         }else{
             fwrite(tabelaHuff[c],strlen(tabelaHuff[c])/8,strlen(tabelaHuff[c]),arqB);
-        }*/
+        }
         //strcat(MEME,tabelaHuff[c]);
         while(j<strlen(tabelaHuff[c])){
             MEME[i] = tabelaHuff[c][j];
@@ -70,12 +80,14 @@ void geraSaida(unsigned char **tabelaHuff, char *nomeArq){
         fwrite(MEME,(strlen(MEME)/8),strlen(MEME),arqB);
     }
 
-    free(MEME);
+    free(MEME);*/
 
     fclose(arqT);
-    fclose(arqB);
+    //fclose(arqB);
 }
 
+
+//funções implementadas com sucesso!!
 /*void geraCodigoArv(tAvore *arv, FILE *arqB){
     if(arv == NULL) return;
     if(arv->esq!=NULL || arv->dir!=NULL){
@@ -89,19 +101,17 @@ void geraSaida(unsigned char **tabelaHuff, char *nomeArq){
 }*/
 //funçao pai printa bit 1
 
-/*tArvore *recriaArvore(tArvore *arv, FILE *arqB, int exit){
+/*tArvore *recriaArvore(tArvore *arv, FILE *arqB){
     //bit = ler bit do arquivo;
-    if(bit == 1 && exit == 1) return NULL;
-    arv = malloc(sizeof(arv));
+    arv = (tAvore *)malloc(sizeof(tArvore));
     if(bit == 0){
-        arv->esq = recriaArvore(arv->esq,arqB,0);
-        arv->dir = recriaArvore(arv->dir,arqB,1);
+        arv->esq = recriaArvore(arv->esq,arqB);
+        arv->dir = recriaArvore(arv->dir,arqB);
     }else{
         c = leio 8 bits na seqeucia
         arv->c = c;
         arv->esq = NULL;
         arv->dir = NULL;
-        if(O proximo bit dps dos 8 bits do caracter for == 1) == acabou a arvore;
     }
     return arv;
 }*/

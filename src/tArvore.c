@@ -78,11 +78,41 @@ void preencheTabela(unsigned char **tabela, tArvore *arvHuff,unsigned char *cod,
     }
 }
 
+void geraCodigoArv(tArvore *arv, FILE*arqB){
+    if(arv == NULL) return;
+    if(arv->esq!=NULL || arv->dir!=NULL){
+        fprintf(arqB,"0");
+        geraCodigoArv(arv->esq,arqB);
+        geraCodigoArv(arv->dir,arqB);
+    }else{
+        fprintf(arqB,"1%c",arv->c);
+        //printa 8 bits(ou 1 byte) do caracter da folha
+    }
+}
+
+tArvore *recriaArvore(tArvore *arv, FILE *arqB){
+    char bit = '\0';
+    fscanf(arqB,"%c",&bit);
+    arv = (tArvore *)malloc(sizeof(tArvore));
+    if(bit == '0'){
+        arv->esq = recriaArvore(arv->esq,arqB);
+        arv->dir = recriaArvore(arv->dir,arqB);
+    }else if(bit == '1'){
+        char c;
+        fscanf(arqB,"%c",&c);
+        arv->c = c;
+        arv->esq = NULL;
+        arv->dir = NULL;
+    }
+    return arv;
+}
+
 //test
 void imprimeArv(tArvore *arv){
     printf("<");
     if(arv != NULL){
-        printf("%d",arv->qtd);
+        if(arv->dir == NULL && arv->esq == NULL)
+            printf("%c",arv->c);
         imprimeArv(arv->esq);
         imprimeArv(arv->dir);
     }

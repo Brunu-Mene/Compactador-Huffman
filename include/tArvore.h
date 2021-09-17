@@ -20,5 +20,7 @@ void preencheTabela(unsigned char **tabela, tArvore *arvHuff,unsigned char *cod,
 
 //test
 void imprimeArv(tArvore *arv);
+void geraCodigoArv(tArvore *arv, FILE*arqB);
+tArvore *recriaArvore(tArvore *arv, FILE *arqB);
 
 #endif
