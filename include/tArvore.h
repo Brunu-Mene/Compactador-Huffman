@@ -22,7 +22,7 @@ void preencheTabela(unsigned char **tabela, tArvore *arvHuff,unsigned char *cod,
 void imprimeArv(tArvore *arv);
 void geraCodigoArv(tArvore *arv, bitmap *bitMap);
 tArvore *recriaArvore(tArvore *arv, FILE *arqB);
-int tamanhoBinarioArv(tArvore *arv, int tam);
+unsigned long int tamanhoBinarioArv(tArvore *arv, int tam);
 //int tamanhoCodArv(tArvore *arv, int tam);
 
 

@@ -38,55 +38,66 @@ void recontroiBits(int byte,char *bits){
     }
 }
 
+unsigned long int tamanhoBinarioTxt(unsigned char **tabelaHuff, FILE *arq){
+    unsigned char c;
+    int qtdBits = 0;
+    while(fscanf(arq,"%c",&c) == 1){
+        printf("%s ",tabelaHuff[c]);
+        qtdBits = qtdBits + strlen(tabelaHuff[c]);
+    }
+
+    return qtdBits;
+}
+
+void geraCodigoTxt(unsigned char **tabelaHuff,bitmap *bitMap,FILE *arq){
+    unsigned char c;
+    while(fscanf(arq,"%c",&c) == 1){
+        for(int i=0; i<strlen(tabelaHuff[c]) ;i++){
+            if(tabelaHuff[c][i] == '1'){
+                bitmapAppendLeastSignificantBit(bitMap,1);
+            }else if(tabelaHuff[c][i] == '0'){
+                bitmapAppendLeastSignificantBit(bitMap,0);
+            }
+        }
+    }
+}
+
 void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff){
     char adress[50] = "data/";
-    unsigned char c;
     strcat(adress,nomeArq);
-    FILE *arqT = fopen(adress,"r");
-    if(arqT == NULL){
+    FILE *arqConta = fopen(adress,"r");
+    FILE *arqLe = fopen(adress,"r");
+    if(arqConta == NULL){
         printf("Arquivo não encontrado!\n");
         exit(1);
     }
+    unsigned long int qtdBitsTxt = tamanhoBinarioTxt(tabelaHuff,arqConta);
+    unsigned long int qtdBitsArv = tamanhoBinarioArv(arvHuff,0);
+    printf("\n%ld - %ld\n",qtdBitsTxt,qtdBitsArv);
+    fclose(arqConta);
+
     adress[strlen(adress)-3] = 'c';
-    adress[strlen(adress)-2] = 'o';
-    adress[strlen(adress)-1] = 'm';
+    adress[strlen(adress)-2] = 'o'; 
+    adress[strlen(adress)-1] = 'm'; 
     strcat(adress,"p\0");
     FILE *arqB = fopen(adress,"wb");
     if(arqB == NULL){
         printf("Erro na criação do arquivo binário de saida!\n");
         exit(1);
     }
-    bitmap *bitMap = bitmapInit(tamanhoBinarioArv(arvHuff,0));
-    geraCodigoArv(arvHuff, bitMap);
-    //pode apagar provavelmente ****
-    /*int tam = tamanhoCodArv(arvHuff,0);
-    unsigned char *codArv = inicializaString(tam+1);
-    codArv[tam] = '\0';
-    geraCodigoArv(arvHuff,codArv);
-    for(int i=0; i<tam ;i++){
-        if(codArv[i] == '1'){
-            bitmapAppendLeastSignificantBit(bitMap,1);
-        }else if(codArv[i] == '0'){
-            bitmapAppendLeastSignificantBit(bitMap,0);
-        }else if(codArv[i] != '\0'){
-            int num = 0, grandeza = 128;
-            for(int j=0; j<8 ;j++){
-                if((num + grandeza) <= codArv[i]){
-                    num = num + grandeza;
-                    bitmapAppendLeastSignificantBit(bitMap,1);
-                }else{
-                    bitmapAppendLeastSignificantBit(bitMap,0);
-                }
-                grandeza = grandeza/2;
-            }
-        }
-    }
-    liberaString(codArv);*/
-    fwrite(bitmapGetContents(bitMap),sizeof(char)*((bitmapGetLength(bitMap)+7)/8),1,arqB);
+    bitmap *bitMapArv = bitmapInit(qtdBitsArv);
+    bitmap *bitMapText = bitmapInit(qtdBitsTxt);
+    geraCodigoArv(arvHuff, bitMapArv);
+    geraCodigoTxt(tabelaHuff, bitMapText, arqLe);
+    fclose(arqLe);
+    
+    fwrite(bitmapGetContents(bitMapArv),sizeof(char)*((qtdBitsArv+7)/8),1,arqB);
+    fwrite(bitmapGetContents(bitMapText),sizeof(char)*((qtdBitsTxt+7)/8),1,arqB);
     fclose(arqB);
-    bitmapLibera(bitMap);
+    bitmapLibera(bitMapArv);
+    bitmapLibera(bitMapText);
 
-    /*TESTANDO MONTAR A ARVORE A PARTIR DO ARQUIVO BINARIO GERADO AQUI SO DE MEME XDXDXDXD*/
+    /*TESTANDO MONTAR A ARVORE A PARTIR DO ARQUIVO BINARIO GERADO AQUI SO DE MEME XDXDXDXD
     unsigned char *bytes = malloc(sizeof(char)*13);
     FILE *arqKK = fopen("data/test.comp","rb");
     fread(bytes,sizeof(char),13,arqKK);
@@ -101,67 +112,6 @@ void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff){
     imprimeArv(MEME);
     free(bytes);
     free(bitsArvores);
-    liberaArvore(MEME);
+    liberaArvore(MEME);*/
     //tArvore *arvRecriada = 
-
-
-    /*char *MEME = calloc('0',sizeof(char)*500);
-    int i=0;
-    while(fscanf(arqT,"%c",&c) == 1){
-        int j=0;
-        printf("%s",tabelaHuff[c]);
-        /*if(strlen(tabelaHuff[c])%8!=0){
-            fwrite(tabelaHuff[c],(strlen(tabelaHuff[c])/8)+1,strlen(tabelaHuff[c]),arqB);
-        }else{
-            fwrite(tabelaHuff[c],strlen(tabelaHuff[c])/8,strlen(tabelaHuff[c]),arqB);
-        }
-        //strcat(MEME,tabelaHuff[c]);
-        while(j<strlen(tabelaHuff[c])){
-            MEME[i] = tabelaHuff[c][j];
-            j++;
-            i++;
-        }
-    }
-    MEME[i+1] = '\0';
-    printf("\n");
-    printf("%s\n",MEME);
-    if(strlen(MEME)%8!=0){
-        fwrite(MEME,sizeof(char),1,arqB);
-    }else{
-        fwrite(MEME,(strlen(MEME)/8),strlen(MEME),arqB);
-    }
-
-    free(MEME);*/
-
-    fclose(arqT);
 }
-
-
-//funções implementadas com sucesso!!
-/*void geraCodigoArv(tAvore *arv, FILE *arqB){
-    if(arv == NULL) return;
-    if(arv->esq!=NULL || arv->dir!=NULL){
-        printa bit 0;
-        geraCodigoArv(arv->esq,arqB);
-        geraCodigoArv(arv->dir,arqB);
-    }else{
-        printa bit 1;
-        printa 8 bits(ou 1 byte) do caracter da folha
-    }
-}*/
-//funçao pai printa bit 1
-
-/*tArvore *recriaArvore(tArvore *arv, FILE *arqB){
-    //bit = ler bit do arquivo;
-    arv = (tAvore *)malloc(sizeof(tArvore));
-    if(bit == 0){
-        arv->esq = recriaArvore(arv->esq,arqB);
-        arv->dir = recriaArvore(arv->dir,arqB);
-    }else{
-        c = leio 8 bits na seqeucia
-        arv->c = c;
-        arv->esq = NULL;
-        arv->dir = NULL;
-    }
-    return arv;
-}*/

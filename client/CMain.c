@@ -19,8 +19,6 @@ int main(int argc, char **argv)
     preencheTabela(tabelaHuff, arvHuff, cod, 0);
     liberaString(cod);
 
-    imprimeArv(arvHuff);
-    printf("\n");
     geraSaida(tabelaHuff,argv[1],arvHuff);
 
     liberaTabela(tabelaHuff);

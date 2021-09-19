@@ -78,7 +78,7 @@ void preencheTabela(unsigned char **tabela, tArvore *arvHuff,unsigned char *cod,
     }
 }
 
-int tamanhoBinarioArv(tArvore *arv, int tam){
+unsigned long int tamanhoBinarioArv(tArvore *arv, int tam){
     if(arv == NULL) return 0;
     if(arv->esq!=NULL && arv->dir!=NULL){
         tam = tam + tamanhoBinarioArv(arv->esq,1);
@@ -167,13 +167,14 @@ int reconstroiChar(char *byte){
     }
     return valor;
 }
+//infuncional, pensar como fazer dps
 tArvore *recriaArvore2(tArvore *arv, char *bits){
     printf("%s\n",bits);
     arv = (tArvore *)malloc(sizeof(tArvore));
     if(bits[0] == '0'){
         arv->esq = recriaArvore2(arv->esq,bits+1);
         arv->dir = recriaArvore2(arv->dir,bits+1);
-    }else if(bits[0] == '1'){
+    }else if(bits[0] == '1'){//
         //printf("%d\n",reconstroiChar(bits+1));
         //fscanf(arqB,"%c",&c);
         arv->c = 'k';
