@@ -124,10 +124,12 @@ void geraCodigoArv(tArvore *arv, bitmap *bitMap){
     if(arv == NULL) return;
     if(arv->esq!=NULL || arv->dir!=NULL){
         bitmapAppendLeastSignificantBit(bitMap,0);
+        //printf("0");
         geraCodigoArv(arv->esq,bitMap);
         geraCodigoArv(arv->dir,bitMap);
     }else{
         bitmapAppendLeastSignificantBit(bitMap,1);
+        //printf("1%c",arv->c);
         int grandeza = 128, num = 0;
         for(int j=0; j<8 ;j++){
                 if((num + grandeza) <= arv->c){
@@ -140,7 +142,7 @@ void geraCodigoArv(tArvore *arv, bitmap *bitMap){
                 }
             grandeza = grandeza/2;
         }
-        //printf("\n")
+        //printf("\n");
     }
 }
 
@@ -173,13 +175,14 @@ int reconstroiChar(char *byte){
 int incrementaIdArv(tArvore *arv, int tam){
     if(arv == NULL) return 0;   
 
-    if(arv->dir == NULL && arv->esq == NULL) return tam + 8;
+    if(arv->dir == NULL && arv->esq == NULL) return 9;
     else{
-        return tam + incrementaIdArv(arv->esq,tam+1) + incrementaIdArv(arv->dir,tam+1);
+        return tam + incrementaIdArv(arv->esq,tam) + incrementaIdArv(arv->dir,tam);
     }
 }
-//<<t<><>><<<e<><>><a<><>>><<s<><>><n<><>>>>>
-//<<t<><>><<<e<><>><a<><>>><<�<><>><�<><>>>>>
+//<<<a<><>><<,<><>><<e<><>><<p<><>><m<><>>>>>><<<l<><>><d<><>>><<<n<><>><k<><>>><<t<><>><s<><>>>>>>
+//<<<a<><>><<,<><>><<e<><>><<p<><>><m<><>>>>>><�<><>>>
+//<<<a<><>><<,<><>><<e<><>><<p<><>><m<><>>>>>><<�<><>><<�<><>><<�<><>><k<><>>>>>>
 
 //infuncional, pensar como fazer dps
 tArvore *recriaArvore2(tArvore *arv, bitmap *bitMap, int id){
@@ -188,14 +191,16 @@ tArvore *recriaArvore2(tArvore *arv, bitmap *bitMap, int id){
     arv->esq = NULL;
     arv->dir = NULL;
     if(bitmapGetBit(bitMap,id) == 0){
+        //printf("0");
         arv->esq = recriaArvore2(arv->esq,bitMap,id+1);
-        id = id + incrementaIdArv(arv,0);
+        id = incrementaIdArv(arv,id);
         //printf("%d\n",id);
         arv->dir = recriaArvore2(arv->dir,bitMap,id+1);
     }else{
+        //printf("1");
         //printf("%d\n",id);
         char bits[9];
-        for(int i=0; i<8 ;i++) bits[i] = '0';
+        for(int i=0; i<9 ;i++) bits[i] = '0';
         for(int i=0; i<8 ;i++){
             if(bitmapGetBit(bitMap,id+1+i) == 0){
                 bits[i] = '0';
@@ -204,7 +209,7 @@ tArvore *recriaArvore2(tArvore *arv, bitmap *bitMap, int id){
             }
         }
         bits[8] = '\0';
-        printf("%s\n",bits);
+        //printf("|%s|",bits);
         arv->esq = arv->dir = NULL;
         //printf("-%d-",reconstroiChar(bits));
         arv->c = reconstroiChar(bits);

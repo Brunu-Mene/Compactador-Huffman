@@ -42,12 +42,15 @@ void preencheBitMap(bitmap *bitMap,char *nomeArq){
         recontroiBits(*byte,bits);
         for(int i=0; i<8; i++){
             if(bits[i] == '1'){
+                //printf("1");
                 bitmapAppendLeastSignificantBit(bitMap,1);
             }else if(bits[i] == '0'){
+                //printf("0");
                 bitmapAppendLeastSignificantBit(bitMap,0);
             }
         }
     }
+    //printf("\n");
     free(byte);
     free(bits);
     fclose(arq);

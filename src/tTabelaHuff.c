@@ -29,7 +29,7 @@ unsigned long int tamanhoBinarioTxt(unsigned char **tabelaHuff, FILE *arq){
     unsigned char c;
     int qtdBits = 0;
     while(fscanf(arq,"%c",&c) == 1){
-        printf("%s ",tabelaHuff[c]);
+        //printf("%s ",tabelaHuff[c]);
         qtdBits = qtdBits + strlen(tabelaHuff[c]);
     }
 
@@ -67,7 +67,7 @@ void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff){
 
     unsigned long int qtdBitsTxt = tamanhoBinarioTxt(tabelaHuff,arqConta);
     unsigned long int qtdBitsArv = tamanhoBinarioArv(arvHuff,0);
-    printf("\n%ld - %ld\n",qtdBitsTxt,qtdBitsArv);
+    //printf("\n%ld - %ld\n",qtdBitsTxt,qtdBitsArv);
     fclose(arqConta);
 
     bitmap *bitMap = bitmapInit(qtdBitsArv + qtdBitsTxt);
