@@ -21,7 +21,7 @@ unsigned int qtdByteArq(char *nomeArq){
 
 void recontroiBits(int byte,char *bits){
     int grandeza = 128, num = 0;
-    for(int j=7; j>=0 ;j--){
+    for(int j=0; j<8 ;j++){
             if((num + grandeza) <= byte){
                 num = num + grandeza;
                 bits[j] = '1';

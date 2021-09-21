@@ -22,7 +22,10 @@ int main(int argc, char **argv)
     geraSaida(tabelaHuff,argv[1],arvHuff);
 
     liberaTabela(tabelaHuff);
+    imprimeArv(arvHuff);
     liberaArvore(arvHuff);
+    //<<t<><>><<<e<><>><a<><>>><<s<><>><n<><>>>>>
+    //<<t<><>><<<e<><>><a<><>>><<e<><>><a<><>>>>>
 
     return 0;
 }

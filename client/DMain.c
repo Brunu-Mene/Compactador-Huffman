@@ -8,6 +8,9 @@ int main(int argc, char **argv){
     }
     bitmap *bitMap = bitmapInit(qtdByteArq(argv[1])*8);
     preencheBitMap(bitMap, argv[1]);
+    tArvore *arv = recriaArvore2(arv,bitMap,0);
+    imprimeArv(arv);
+    liberaArvore(arv);
     bitmapLibera(bitMap);
     return 0;
 }

@@ -49,6 +49,7 @@ void geraCodigoTxt(unsigned char **tabelaHuff,bitmap *bitMap,FILE *arq){
     }
 }
 
+//mudar pra um unico bitmap provavelmente
 void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff){
     char adress[50] = "data/";
     strcat(adress,nomeArq);
@@ -69,15 +70,20 @@ void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff){
     printf("\n%ld - %ld\n",qtdBitsTxt,qtdBitsArv);
     fclose(arqConta);
 
-    bitmap *bitMapArv = bitmapInit(qtdBitsArv);
-    bitmap *bitMapText = bitmapInit(qtdBitsTxt);
-    geraCodigoArv(arvHuff, bitMapArv);
-    geraCodigoTxt(tabelaHuff, bitMapText, arqLe);
+    bitmap *bitMap = bitmapInit(qtdBitsArv + qtdBitsTxt);
+    //bitmap *bitMapArv = bitmapInit(qtdBitsArv);
+    //bitmap *bitMapText = bitmapInit(qtdBitsTxt);
+    //geraCodigoArv(arvHuff, bitMapArv);
+    //geraCodigoTxt(tabelaHuff, bitMapText, arqLe);
+    geraCodigoArv(arvHuff, bitMap);
+    geraCodigoTxt(tabelaHuff, bitMap, arqLe);
     fclose(arqLe);
     
-    fwrite(bitmapGetContents(bitMapArv),sizeof(char)*((qtdBitsArv+7)/8),1,arqB);
-    fwrite(bitmapGetContents(bitMapText),sizeof(char)*((qtdBitsTxt+7)/8),1,arqB);
+    //fwrite(bitmapGetContents(bitMapArv),sizeof(char)*((qtdBitsArv+7)/8),1,arqB);
+    //fwrite(bitmapGetContents(bitMapText),sizeof(char)*((qtdBitsTxt+7)/8),1,arqB);
+    fwrite(bitmapGetContents(bitMap),sizeof(char)*(((qtdBitsArv+qtdBitsTxt)+7)/8),1,arqB);
     fclose(arqB);
-    bitmapLibera(bitMapArv);
-    bitmapLibera(bitMapText);
+    //bitmapLibera(bitMapArv);
+    //bitmapLibera(bitMapText);
+    bitmapLibera(bitMap);
 }
