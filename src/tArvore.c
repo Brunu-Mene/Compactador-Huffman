@@ -177,10 +177,19 @@ int incrementaIdArv(tArvore *arv, int tam){
 
     if(arv->dir == NULL && arv->esq == NULL) return 9;
     else{
-        return tam + incrementaIdArv(arv->esq,tam) + incrementaIdArv(arv->dir,tam);
+        if(arv->dir == NULL){
+            //printf("Test1");
+            return tam + incrementaIdArv(arv->esq,tam+1);
+        }
+        else{
+            return tam + incrementaIdArv(arv->dir,tam) + incrementaIdArv(arv->esq,tam+1);
+        }
     }
 }
 //<<<a<><>><<,<><>><<e<><>><<p<><>><m<><>>>>>><<<l<><>><d<><>>><<<n<><>><k<><>>><<t<><>><s<><>>>>>>
+//<<<a<><>><<,<><>><<e<><>><<p<><>><m<><>>>>>><<<l<><>><d<><>>><<<n<><>><k<><>>><<t<><>><s<><>>>>>>
+//<<<a<><>><<,<><>><<e<><>><<p<><>><m<><>>>>>><<<l<><>><d<><>>><�<><>>>>
+//<<<a<><>><<,<><>><<e<><>><<p<><>><m<><>>>>>><<<l<><>><d<><>>><�<><>>>>
 //<<<a<><>><<,<><>><<e<><>><<p<><>><m<><>>>>>><�<><>>>
 //<<<a<><>><<,<><>><<e<><>><<p<><>><m<><>>>>>><<�<><>><<�<><>><<�<><>><k<><>>>>>>
 
@@ -193,7 +202,7 @@ tArvore *recriaArvore2(tArvore *arv, bitmap *bitMap, int id){
     if(bitmapGetBit(bitMap,id) == 0){
         //printf("0");
         arv->esq = recriaArvore2(arv->esq,bitMap,id+1);
-        id = incrementaIdArv(arv,id);
+        id = id + incrementaIdArv(arv,0);
         //printf("%d\n",id);
         arv->dir = recriaArvore2(arv->dir,bitMap,id+1);
     }else{
