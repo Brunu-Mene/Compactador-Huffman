@@ -9,7 +9,7 @@ unsigned int qtdByteArq(char *nomeArq){
         exit(1);
     }
     unsigned char *byte = malloc(sizeof(unsigned char));
-    int qtdBytes = 0;
+    unsigned int qtdBytes = 0;
     while(fread(byte,sizeof(unsigned char),1,arq) == 1){
         qtdBytes++;
     }
@@ -72,8 +72,7 @@ void decodificaTexto(tArvore *arv,bitmap *bitMap, char *nomeArq){
         }
         grandeza = grandeza/2;
     }
-    int n = bitmapGetLength(bitMap);
-    printf("%d-%d",sobraBits,n);
-    recriaTexto(arv,arv,bitMap,tamanhoBinarioArv(arv,0) + 3,sobraBits,arq);
+    //printf("%d",bitmapGetLength(bitMap));
+    recriaTexto(arv,bitMap,tamanhoBinarioArv(arv,0) + 3, sobraBits,arq);
     fclose(arq);
 }

@@ -67,7 +67,7 @@ void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff){
     unsigned long int qtdBitsTxt = tamanhoBinarioTxt(tabelaHuff,arqConta);
     unsigned long int qtdBitsArv = tamanhoBinarioArv(arvHuff,0);
     int sobraBits = 0;
-    printf("%d-",qtdBitsTxt+qtdBitsArv+3);
+    //printf("%d-",qtdBitsTxt+qtdBitsArv+3);
     while((qtdBitsTxt+qtdBitsArv+sobraBits+3)%8!=0){
         sobraBits++;
     }
@@ -84,7 +84,6 @@ void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff){
         }
         grandeza = grandeza/2;
     }
-    printf("%d\n",sobraBits);
 
     geraCodigoArv(arvHuff, bitMap);
     geraCodigoTxt(tabelaHuff, bitMap, arqLe);

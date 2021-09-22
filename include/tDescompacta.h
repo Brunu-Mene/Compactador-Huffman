@@ -10,6 +10,6 @@
 unsigned int qtdByteArq(char *nomeArq);
 void recontroiBits(int byte,char *bits);
 void preencheBitMap(bitmap *bitMap,char *nomeArq);
-void decodificaTexto(tArvore *arv,bitmap *bitMap, char *nomeArq);
+void decodificaTexto(tArvore *arv,bitmap *bitMap,char *nomeArq);
 
 #endif

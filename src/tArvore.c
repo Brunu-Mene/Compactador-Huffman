@@ -65,11 +65,17 @@ void liberaArvore(tArvore *arv){
 void preencheTabela(unsigned char **tabela, tArvore *arvHuff,unsigned char *cod, int id){
     if(arvHuff == NULL) return;
     else if(arvHuff->esq == NULL && arvHuff->dir == NULL){
-        tabela[arvHuff->c] = inicializaString(id+1);
-        for(int i=0; i<id ;i++){
-            tabela[arvHuff->c][i] = cod[i];
-        }
-        tabela[arvHuff->c][id] = '\0';
+        /*if(id == 0){
+            tabela[arvHuff->c] = inicializaString(2);
+            tabela[arvHuff->c][0] = '0';
+            tabela[arvHuff->c][1] = '\0';
+        }else{*/
+            tabela[arvHuff->c] = inicializaString(id+1);
+            for(int i=0; i<id ;i++){
+                tabela[arvHuff->c][i] = cod[i];
+            }
+            tabela[arvHuff->c][id] = '\0';
+        //}
     }else{
         cod[id] = '0';
         preencheTabela(tabela,arvHuff->esq,cod,id+1);
@@ -160,17 +166,20 @@ tArvore *recriaArvore(tArvore *arv, bitmap *bitMap, int id){
     return arv;
 }
 
-void recriaTexto(tArvore *arv, tArvore *raiz,bitmap *bitMap, int id, int sobraBits, FILE *arq){
-    if(arv->dir == NULL && arv->esq == NULL){
-        fprintf(arq,"%c",arv->c);
-        recriaTexto(raiz,raiz,bitMap,id,sobraBits,arq);
-        return;
-    }
-    if(id < bitmapGetLength(bitMap) - sobraBits){
-        if(bitmapGetBit(bitMap,id) == 1){
-            recriaTexto(arv->dir,raiz,bitMap,id+1,sobraBits,arq);
-        }else if(bitmapGetBit(bitMap,id) == 0){
-            recriaTexto(arv->esq,raiz,bitMap,id+1,sobraBits,arq);
+void recriaTexto(tArvore *arv,bitmap *bitMap, unsigned int id, int sobraBits, FILE *arq){
+    tArvore *raiz = arv;
+    while(id < bitmapGetLength(bitMap) - sobraBits){
+        if(arv->dir != NULL && arv->esq != NULL){
+            if(bitmapGetBit(bitMap,id) == 1){
+                arv = arv->dir;
+            }else{
+                arv = arv->esq;
+            }
+            id++;
+        }
+        if(arv->dir == NULL && arv->esq == NULL){
+            fprintf(arq,"%c",arv->c);
+            arv = raiz;
         }
     }
 }

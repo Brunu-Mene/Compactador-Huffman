@@ -6,7 +6,6 @@ int main(int argc, char **argv){
         printf("Numero de parametros incorreto!\n");
         exit(1);
     }
-    printf("%d\n",qtdByteArq(argv[1])*8);
     bitmap *bitMap = bitmapInit(qtdByteArq(argv[1])*8);
     preencheBitMap(bitMap, argv[1]);
     tArvore *arv = recriaArvore(arv,bitMap,3);
@@ -16,3 +15,4 @@ int main(int argc, char **argv){
     bitmapLibera(bitMap);
     return 0;
 }
+
