@@ -54,10 +54,10 @@ void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff){
     strcat(adress,nomeArq);
     FILE *arqConta = fopen(adress,"r");
     FILE *arqLe = fopen(adress,"r");
-    adress[strlen(adress)-3] = 'c';
-    adress[strlen(adress)-2] = 'o'; 
-    adress[strlen(adress)-1] = 'm'; 
-    strcat(adress,"p\0");
+    //adress[strlen(adress)-3] = 'c';
+    //adress[strlen(adress)-2] = 'o'; 
+    //adress[strlen(adress)-1] = 'm'; 
+    strcat(adress,".comp\0");
     FILE *arqB = fopen(adress,"wb");
     if(arqB == NULL){
         printf("Erro na criação do arquivo binário de saida!\n");

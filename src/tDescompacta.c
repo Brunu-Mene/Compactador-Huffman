@@ -55,10 +55,7 @@ void preencheBitMap(bitmap *bitMap,char *nomeArq){
 
 void decodificaTexto(tArvore *arv,bitmap *bitMap, char *nomeArq){
     char adress[50] = "data/New";
-    nomeArq[strlen(nomeArq)-2] = 't';
-    nomeArq[strlen(nomeArq)-3] = 'x';
-    nomeArq[strlen(nomeArq)-4] = 't';
-    nomeArq[strlen(nomeArq)-1] = '\0';
+    nomeArq[strlen(nomeArq)-5] = '\0';
     strcat(adress,nomeArq);
     FILE *arq = fopen(adress,"w");
     if(arq == NULL){
