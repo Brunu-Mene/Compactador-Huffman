@@ -55,7 +55,6 @@ void preencheBitMap(bitmap *bitMap,char *nomeArq){
 
 void decodificaTexto(tArvore *arv,bitmap *bitMap, char *nomeArq){
     char adress[50] = "data/New";
-    printf("%s-%ld",nomeArq,strlen(nomeArq));
     nomeArq[strlen(nomeArq)-2] = 't';
     nomeArq[strlen(nomeArq)-3] = 'x';
     nomeArq[strlen(nomeArq)-4] = 't';
@@ -66,6 +65,15 @@ void decodificaTexto(tArvore *arv,bitmap *bitMap, char *nomeArq){
         printf("Erro na criação doa rquivo decodificado!\n");
         exit(1);
     }
-    recriaTexto(arv,arv,bitMap,tamanhoBinarioArv(arv,0),arq);
+    int sobraBits = 0, grandeza = 4;
+    for(int i=0; i<3 ;i++){
+        if(bitmapGetBit(bitMap,i) == 1){
+            sobraBits = sobraBits + grandeza;
+        }
+        grandeza = grandeza/2;
+    }
+    int n = bitmapGetLength(bitMap);
+    printf("%d-%d",sobraBits,n);
+    recriaTexto(arv,arv,bitMap,tamanhoBinarioArv(arv,0) + 3,sobraBits,arq);
     fclose(arq);
 }

@@ -27,6 +27,6 @@ unsigned long int tamanhoBinarioArv(tArvore *arv, int tam);
 
 //MEME
 tArvore *recriaArvore(tArvore *arv, bitmap *bitMap, int id);
-void recriaTexto(tArvore *arv, tArvore *raiz,bitmap *bitMap, int id, FILE *arq);
+void recriaTexto(tArvore *arv, tArvore *raiz,bitmap *bitMap, int id, int sobraBits, FILE *arq);
 
 #endif

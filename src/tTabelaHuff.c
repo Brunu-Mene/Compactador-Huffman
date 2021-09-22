@@ -40,10 +40,8 @@ void geraCodigoTxt(unsigned char **tabelaHuff,bitmap *bitMap,FILE *arq){
     while(fscanf(arq,"%c",&c) == 1){
         for(int i=0; i<strlen(tabelaHuff[c]) ;i++){
             if(tabelaHuff[c][i] == '1'){
-                //printf("1");
                 bitmapAppendLeastSignificantBit(bitMap,1);
             }else if(tabelaHuff[c][i] == '0'){
-                //printf("0");
                 bitmapAppendLeastSignificantBit(bitMap,0);
             }
         }
@@ -68,23 +66,32 @@ void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff){
 
     unsigned long int qtdBitsTxt = tamanhoBinarioTxt(tabelaHuff,arqConta);
     unsigned long int qtdBitsArv = tamanhoBinarioArv(arvHuff,0);
-    //printf("\n%ld - %ld\n",qtdBitsTxt,qtdBitsArv);
+    int sobraBits = 0;
+    printf("%d-",qtdBitsTxt+qtdBitsArv+3);
+    while((qtdBitsTxt+qtdBitsArv+sobraBits+3)%8!=0){
+        sobraBits++;
+    }
     fclose(arqConta);
 
-    bitmap *bitMap = bitmapInit(qtdBitsArv + qtdBitsTxt);
-    //bitmap *bitMapArv = bitmapInit(qtdBitsArv);
-    //bitmap *bitMapText = bitmapInit(qtdBitsTxt);
-    //geraCodigoArv(arvHuff, bitMapArv);
-    //geraCodigoTxt(tabelaHuff, bitMapText, arqLe);
+    bitmap *bitMap = bitmapInit(qtdBitsArv + qtdBitsTxt + 3);
+    int grandeza = 4, aux = 0;
+    for(int i=0; i<3 ;i++){
+        if(grandeza + aux <= sobraBits){
+            aux = aux + grandeza;
+            bitmapAppendLeastSignificantBit(bitMap,1);
+        }else{
+            bitmapAppendLeastSignificantBit(bitMap,0);
+        }
+        grandeza = grandeza/2;
+    }
+    printf("%d\n",sobraBits);
+
     geraCodigoArv(arvHuff, bitMap);
     geraCodigoTxt(tabelaHuff, bitMap, arqLe);
     fclose(arqLe);
     
-    //fwrite(bitmapGetContents(bitMapArv),sizeof(char)*((qtdBitsArv+7)/8),1,arqB);
-    //fwrite(bitmapGetContents(bitMapText),sizeof(char)*((qtdBitsTxt+7)/8),1,arqB);
-    fwrite(bitmapGetContents(bitMap),sizeof(char)*(((qtdBitsArv+qtdBitsTxt)+7)/8),1,arqB);
+    fwrite(bitmapGetContents(bitMap),sizeof(char)*(((qtdBitsArv+qtdBitsTxt+3)+7)/8),1,arqB);
     fclose(arqB);
-    //bitmapLibera(bitMapArv);
-    //bitmapLibera(bitMapText);
+
     bitmapLibera(bitMap);
 }

@@ -94,22 +94,18 @@ unsigned long int tamanhoBinarioArv(tArvore *arv, int tam){
 void geraCodigoArv(tArvore *arv, bitmap *bitMap){
     if(arv == NULL) return;
     if(arv->esq!=NULL || arv->dir!=NULL){
-        //printf("0");
         bitmapAppendLeastSignificantBit(bitMap,0);
         geraCodigoArv(arv->esq,bitMap);
         geraCodigoArv(arv->dir,bitMap);
     }else{
-        //printf("1");
         bitmapAppendLeastSignificantBit(bitMap,1);
         int grandeza = 128, num = 0;
         for(int j=0; j<8 ;j++){
                 if((num + grandeza) <= arv->c){
                     num = num + grandeza;
                     bitmapAppendLeastSignificantBit(bitMap,1);
-                    //printf("1");
                 }else{
                     bitmapAppendLeastSignificantBit(bitMap,0);
-                    //printf("0");
                 }
             grandeza = grandeza/2;
         }
@@ -164,17 +160,17 @@ tArvore *recriaArvore(tArvore *arv, bitmap *bitMap, int id){
     return arv;
 }
 
-void recriaTexto(tArvore *arv, tArvore *raiz,bitmap *bitMap, int id, FILE *arq){
+void recriaTexto(tArvore *arv, tArvore *raiz,bitmap *bitMap, int id, int sobraBits, FILE *arq){
     if(arv->dir == NULL && arv->esq == NULL){
         fprintf(arq,"%c",arv->c);
-        recriaTexto(raiz,raiz,bitMap,id,arq);
+        recriaTexto(raiz,raiz,bitMap,id,sobraBits,arq);
         return;
     }
-    if(id < bitmapGetLength(bitMap)){
+    if(id < bitmapGetLength(bitMap) - sobraBits){
         if(bitmapGetBit(bitMap,id) == 1){
-            recriaTexto(arv->dir,raiz,bitMap,id+1,arq);
+            recriaTexto(arv->dir,raiz,bitMap,id+1,sobraBits,arq);
         }else if(bitmapGetBit(bitMap,id) == 0){
-            recriaTexto(arv->esq,raiz,bitMap,id+1,arq);
+            recriaTexto(arv->esq,raiz,bitMap,id+1,sobraBits,arq);
         }
     }
 }
