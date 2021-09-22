@@ -29,7 +29,6 @@ unsigned long int tamanhoBinarioTxt(unsigned char **tabelaHuff, FILE *arq){
     unsigned char c;
     int qtdBits = 0;
     while(fscanf(arq,"%c",&c) == 1){
-        //printf("%s ",tabelaHuff[c]);
         qtdBits = qtdBits + strlen(tabelaHuff[c]);
     }
 
@@ -41,8 +40,10 @@ void geraCodigoTxt(unsigned char **tabelaHuff,bitmap *bitMap,FILE *arq){
     while(fscanf(arq,"%c",&c) == 1){
         for(int i=0; i<strlen(tabelaHuff[c]) ;i++){
             if(tabelaHuff[c][i] == '1'){
+                //printf("1");
                 bitmapAppendLeastSignificantBit(bitMap,1);
             }else if(tabelaHuff[c][i] == '0'){
+                //printf("0");
                 bitmapAppendLeastSignificantBit(bitMap,0);
             }
         }

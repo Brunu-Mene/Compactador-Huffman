@@ -21,12 +21,12 @@ void preencheTabela(unsigned char **tabela, tArvore *arvHuff,unsigned char *cod,
 //test
 void imprimeArv(tArvore *arv);
 void geraCodigoArv(tArvore *arv, bitmap *bitMap);
-tArvore *recriaArvore(tArvore *arv, FILE *arqB);
 unsigned long int tamanhoBinarioArv(tArvore *arv, int tam);
 //int tamanhoCodArv(tArvore *arv, int tam);
 
 
 //MEME
-tArvore *recriaArvore2(tArvore *arv, bitmap *bitMap, int id);
+tArvore *recriaArvore(tArvore *arv, bitmap *bitMap, int id);
+void recriaTexto(tArvore *arv, tArvore *raiz,bitmap *bitMap, int id, FILE *arq);
 
 #endif

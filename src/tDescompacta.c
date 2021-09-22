@@ -42,16 +42,30 @@ void preencheBitMap(bitmap *bitMap,char *nomeArq){
         recontroiBits(*byte,bits);
         for(int i=0; i<8; i++){
             if(bits[i] == '1'){
-                //printf("1");
                 bitmapAppendLeastSignificantBit(bitMap,1);
             }else if(bits[i] == '0'){
-                //printf("0");
                 bitmapAppendLeastSignificantBit(bitMap,0);
             }
         }
     }
-    //printf("\n");
     free(byte);
     free(bits);
+    fclose(arq);
+}
+
+void decodificaTexto(tArvore *arv,bitmap *bitMap, char *nomeArq){
+    char adress[50] = "data/New";
+    printf("%s-%ld",nomeArq,strlen(nomeArq));
+    nomeArq[strlen(nomeArq)-2] = 't';
+    nomeArq[strlen(nomeArq)-3] = 'x';
+    nomeArq[strlen(nomeArq)-4] = 't';
+    nomeArq[strlen(nomeArq)-1] = '\0';
+    strcat(adress,nomeArq);
+    FILE *arq = fopen(adress,"w");
+    if(arq == NULL){
+        printf("Erro na criação doa rquivo decodificado!\n");
+        exit(1);
+    }
+    recriaTexto(arv,arv,bitMap,tamanhoBinarioArv(arv,0),arq);
     fclose(arq);
 }

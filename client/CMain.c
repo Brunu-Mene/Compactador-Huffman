@@ -24,8 +24,6 @@ int main(int argc, char **argv)
     liberaTabela(tabelaHuff);
     imprimeArv(arvHuff);
     liberaArvore(arvHuff);
-    //<<t<><>><<<e<><>><a<><>>><<s<><>><n<><>>>>>
-    //<<t<><>><<<e<><>><a<><>>><<e<><>><a<><>>>>>
 
     return 0;
 }
