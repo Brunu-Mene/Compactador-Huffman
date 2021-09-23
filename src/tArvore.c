@@ -1,5 +1,5 @@
 #include "../include/tArvore.h"
-#include "../include/tTabelaHuff.h"
+#include "../include/tCompacta.h"
 
 struct Arvore{
     tArvore *esq;

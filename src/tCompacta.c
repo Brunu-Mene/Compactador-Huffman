@@ -1,4 +1,4 @@
-#include "../include/tTabelaHuff.h"
+#include "../include/tCompacta.h"
 #include "../include/tBitmap.h"
 
 unsigned char **inicializaTabela(){
@@ -48,15 +48,11 @@ void geraCodigoTxt(unsigned char **tabelaHuff,bitmap *bitMap,FILE *arq){
     }
 }
 
-//mudar pra um unico bitmap provavelmente
 void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff){
     char adress[50] = "data/";
     strcat(adress,nomeArq);
     FILE *arqConta = fopen(adress,"r");
     FILE *arqLe = fopen(adress,"r");
-    //adress[strlen(adress)-3] = 'c';
-    //adress[strlen(adress)-2] = 'o'; 
-    //adress[strlen(adress)-1] = 'm'; 
     strcat(adress,".comp\0");
     FILE *arqB = fopen(adress,"wb");
     if(arqB == NULL){
@@ -67,7 +63,6 @@ void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff){
     unsigned long int qtdBitsTxt = tamanhoBinarioTxt(tabelaHuff,arqConta);
     unsigned long int qtdBitsArv = tamanhoBinarioArv(arvHuff,0);
     int sobraBits = 0;
-    //printf("%d-",qtdBitsTxt+qtdBitsArv+3);
     while((qtdBitsTxt+qtdBitsArv+sobraBits+3)%8!=0){
         sobraBits++;
     }

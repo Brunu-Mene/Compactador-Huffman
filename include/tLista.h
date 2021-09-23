@@ -15,8 +15,4 @@ void combinaListArv(tLista *list);
 tArvore *retornaPriArv(tLista *list);
 void liberaLista(tLista *list);
 
-//função de test
-//void ordenaLista(tLista *list);
-void printaLista(tLista *list);
-
 #endif

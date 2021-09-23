@@ -1,5 +1,5 @@
-#ifndef T_TABELAHUFF
-#define T_TABELAHUFF
+#ifndef T_COMPACTA
+#define T_COMPACTA
 
 #include <stdio.h>
 #include <stdlib.h>

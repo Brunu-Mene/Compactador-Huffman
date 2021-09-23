@@ -1,6 +1,6 @@
 #include "../include/tArvore.h"
 #include "../include/tLista.h"
-#include "../include/tTabelaHuff.h"
+#include "../include/tCompacta.h"
 
 int main(int argc, char **argv)
 {

@@ -107,10 +107,3 @@ void liberaLista(tLista *list){
 tArvore *retornaPriArv(tLista *list){
     return list->pri->arv;
 }
-
-//função de test
-void printaLista(tLista *list){
-    for(tCelula *p = list->pri; p!=NULL ;p=p->prox){
-        printf("%d ",retornaQtd(p->arv));
-    }
-}

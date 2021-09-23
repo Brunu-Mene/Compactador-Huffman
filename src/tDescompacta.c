@@ -69,7 +69,6 @@ void decodificaTexto(tArvore *arv,bitmap *bitMap, char *nomeArq){
         }
         grandeza = grandeza/2;
     }
-    //printf("%d",bitmapGetLength(bitMap));
     recriaTexto(arv,bitMap,tamanhoBinarioArv(arv,0) + 3, sobraBits,arq);
     fclose(arq);
 }
