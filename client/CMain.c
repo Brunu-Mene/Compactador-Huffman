@@ -13,17 +13,16 @@ int main(int argc, char **argv)
     combinaListArv(list);
     tArvore *arvHuff = retornaPriArv(list);
     liberaLista(list);
-
+    
     unsigned char **tabelaHuff = inicializaTabela();
     unsigned char *cod = inicializaString(altura(arvHuff)+2);
     preencheTabela(tabelaHuff, arvHuff, cod, 0);
     liberaString(cod);
-
     geraSaida(tabelaHuff,argv[1],arvHuff);
 
     liberaTabela(tabelaHuff);
     imprimeArv(arvHuff);
     liberaArvore(arvHuff);
-
+    
     return 0;
 }

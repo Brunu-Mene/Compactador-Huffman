@@ -65,17 +65,17 @@ void liberaArvore(tArvore *arv){
 void preencheTabela(unsigned char **tabela, tArvore *arvHuff,unsigned char *cod, int id){
     if(arvHuff == NULL) return;
     else if(arvHuff->esq == NULL && arvHuff->dir == NULL){
-        /*if(id == 0){
+        if(id == 0){
             tabela[arvHuff->c] = inicializaString(2);
             tabela[arvHuff->c][0] = '0';
             tabela[arvHuff->c][1] = '\0';
-        }else{*/
+        }else{
             tabela[arvHuff->c] = inicializaString(id+1);
             for(int i=0; i<id ;i++){
                 tabela[arvHuff->c][i] = cod[i];
             }
             tabela[arvHuff->c][id] = '\0';
-        //}
+        }
     }else{
         cod[id] = '0';
         preencheTabela(tabela,arvHuff->esq,cod,id+1);
@@ -168,6 +168,13 @@ tArvore *recriaArvore(tArvore *arv, bitmap *bitMap, int id){
 
 void recriaTexto(tArvore *arv,bitmap *bitMap, unsigned int id, int sobraBits, FILE *arq){
     tArvore *raiz = arv;
+    if(raiz->esq == NULL && raiz->dir == NULL){
+        while(id < bitmapGetLength(bitMap) - sobraBits){
+            fprintf(arq,"%c",arv->c);
+            id++;
+        }
+        return;
+    }
     while(id < bitmapGetLength(bitMap) - sobraBits){
         if(arv->dir != NULL && arv->esq != NULL){
             if(bitmapGetBit(bitMap,id) == 1){
