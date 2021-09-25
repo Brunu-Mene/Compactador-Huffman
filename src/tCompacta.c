@@ -25,7 +25,7 @@ void liberaTabela(unsigned char **tabelaHuff){
     free(tabelaHuff);
 }
 
-unsigned long int tamanhoBinarioTxt(unsigned char **tabelaHuff, FILE *arq){
+unsigned int tamanhoBinarioTxt(unsigned char **tabelaHuff, FILE *arq){
     unsigned char c;
     int qtdBits = 0;
     while(fscanf(arq,"%c",&c) == 1){
@@ -60,8 +60,8 @@ void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff){
         exit(1);
     }
 
-    unsigned long int qtdBitsTxt = tamanhoBinarioTxt(tabelaHuff,arqConta);
-    unsigned long int qtdBitsArv = tamanhoBinarioArv(arvHuff,0);
+    unsigned int qtdBitsTxt = tamanhoBinarioTxt(tabelaHuff,arqConta);
+    unsigned int qtdBitsArv = tamanhoBinarioArv(arvHuff,0);
     int sobraBits = 0;
     while((qtdBitsTxt+qtdBitsArv+sobraBits+3)%8!=0){
         sobraBits++;

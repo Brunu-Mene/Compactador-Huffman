@@ -12,7 +12,7 @@ tLista *iniciaLista();
 void insereListaOrdenado(tLista *lista, tArvore *arv);
 void preencheLista(tLista *list, char *nomeArq);
 void combinaListArv(tLista *list);
-tArvore *retornaPriArv(tLista *list);
 void liberaLista(tLista *list);
+tArvore *retornaPriArv(tLista *list);
 
 #endif

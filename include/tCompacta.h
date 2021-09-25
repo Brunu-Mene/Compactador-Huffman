@@ -10,6 +10,8 @@ unsigned char **inicializaTabela();
 unsigned char *inicializaString(int tam);
 void liberaString(unsigned char *string);
 void liberaTabela(unsigned char **tabelaHuff);
+unsigned int tamanhoBinarioTxt(unsigned char **tabelaHuff, FILE *arq);
+void geraCodigoTxt(unsigned char **tabelaHuff,bitmap *bitMap,FILE *arq);
 void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff);
 
 #endif

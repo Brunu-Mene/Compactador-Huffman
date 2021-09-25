@@ -49,6 +49,7 @@ tArvore *preencheArvore(tArvore *arv,tArvore *esq, tArvore *dir, int qtd){
 unsigned char retornaCaracter(tArvore *arv){
     return arv->c;
 }
+
 int retornaQtd(tArvore *arv){
     return arv->qtd;
 }
@@ -84,7 +85,7 @@ void preencheTabela(unsigned char **tabela, tArvore *arvHuff,unsigned char *cod,
     }
 }
 
-unsigned long int tamanhoBinarioArv(tArvore *arv, int tam){
+unsigned int tamanhoBinarioArv(tArvore *arv, int tam){
     if(arv == NULL) return 0;
     if(arv->esq!=NULL && arv->dir!=NULL){
         tam = tam + tamanhoBinarioArv(arv->esq,1);
@@ -189,16 +190,4 @@ void recriaTexto(tArvore *arv,bitmap *bitMap, unsigned int id, int sobraBits, FI
             arv = raiz;
         }
     }
-}
-
-//test
-void imprimeArv(tArvore *arv){
-    printf("<");
-    if(arv != NULL){
-        if(arv->dir == NULL && arv->esq == NULL)
-            printf("%c",arv->c);
-        imprimeArv(arv->esq);
-        imprimeArv(arv->dir);
-    }
-    printf(">");
 }

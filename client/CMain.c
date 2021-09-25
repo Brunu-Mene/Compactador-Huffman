@@ -21,7 +21,6 @@ int main(int argc, char **argv)
     geraSaida(tabelaHuff,argv[1],arvHuff);
 
     liberaTabela(tabelaHuff);
-    imprimeArv(arvHuff);
     liberaArvore(arvHuff);
     
     return 0;
