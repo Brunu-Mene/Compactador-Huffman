@@ -4,7 +4,7 @@
 unsigned char **inicializaTabela(){
     unsigned char **tabelaHuff = (unsigned char **)malloc(257*sizeof(unsigned char *));
     for(int i=0; i<257 ;i++){
-        tabelaHuff[i] = NULL;
+        tabelaHuff[i] = NULL; 
     }
     return tabelaHuff;
 }
@@ -35,7 +35,7 @@ unsigned int tamanhoBinarioTxt(unsigned char **tabelaHuff, FILE *arq){
     return qtdBits;
 }
 
-void geraCodigoTxt(unsigned char **tabelaHuff,bitmap *bitMap,FILE *arq){
+void geraCodigoArq(unsigned char **tabelaHuff,bitmap *bitMap,FILE *arq){
     unsigned char c;
     while(fscanf(arq,"%c",&c) == 1){
         for(int i=0; i<strlen(tabelaHuff[c]) ;i++){
@@ -81,7 +81,7 @@ void geraSaida(unsigned char **tabelaHuff, char *nomeArq, tArvore *arvHuff){
     }
 
     geraCodigoArv(arvHuff, bitMap);
-    geraCodigoTxt(tabelaHuff, bitMap, arqLe);
+    geraCodigoArq(tabelaHuff, bitMap, arqLe);
     fclose(arqLe);
     
     fwrite(bitmapGetContents(bitMap),sizeof(char)*(((qtdBitsArv+qtdBitsTxt+3)+7)/8),1,arqB);

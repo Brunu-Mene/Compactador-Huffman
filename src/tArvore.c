@@ -130,32 +130,19 @@ int reconstroiChar(char *byte){
     return valor;
 }
 
-int incrementaIdArv(tArvore *arv, int tam){
-    if(arv == NULL) return 0;   
-
-    if(arv->dir == NULL && arv->esq == NULL) return 9;
-    else{
-        if(arv->dir == NULL){
-            return tam + incrementaIdArv(arv->esq,tam+1);
-        }else{
-            return tam + incrementaIdArv(arv->dir,tam) + incrementaIdArv(arv->esq,tam);
-        }
-    }
-}
-
-tArvore *recriaArvore(tArvore *arv, bitmap *bitMap, int id){
+tArvore *recriaArvore(tArvore *arv, bitmap *bitMap, int *id){
     arv = (tArvore *)malloc(sizeof(tArvore));
     arv->esq = NULL;
     arv->dir = NULL;
-    if(bitmapGetBit(bitMap,id) == 0){
-        arv->esq = recriaArvore(arv->esq,bitMap,id+1);
-        id = id + incrementaIdArv(arv,0);
-        arv->dir = recriaArvore(arv->dir,bitMap,id+1);
+    if(bitmapGetBit(bitMap,*id) == 0){
+        *id = *id + 1;
+        arv->esq = recriaArvore(arv->esq,bitMap,id);
+        arv->dir = recriaArvore(arv->dir,bitMap,id);
     }else{
         char bits[8];
         for(int i=0; i<8 ;i++) bits[i] = '0';
         for(int i=0; i<8 ;i++){
-            if(bitmapGetBit(bitMap,id+1+i) == 0){
+            if(bitmapGetBit(bitMap,*id+1+i) == 0){
                 bits[i] = '0';
             }else{
                 bits[i] = '1';
@@ -163,6 +150,7 @@ tArvore *recriaArvore(tArvore *arv, bitmap *bitMap, int id){
         }
         arv->esq = arv->dir = NULL;
         arv->c = reconstroiChar(bits);
+        *id = *id + 9;
     }
     return arv;
 }

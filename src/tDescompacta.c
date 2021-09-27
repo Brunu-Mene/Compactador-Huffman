@@ -1,5 +1,14 @@
 #include "../include/tDescompacta.h"
 
+int *inicializaID(){
+    int *id = (int *)malloc(sizeof(int));
+    *id = 3;
+    return id;
+}
+void liberaID(int *id){
+    free(id);
+}
+
 unsigned int qtdByteArq(char *nomeArq){
     char adress[50] = "data/";
     strcat(adress,nomeArq);
