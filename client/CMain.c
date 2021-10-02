@@ -1,7 +1,6 @@
 #include "../include/tArvore.h"
 #include "../include/tLista.h"
 #include "../include/tCompacta.h"
-//test
 
 int main(int argc, char **argv)
 {
