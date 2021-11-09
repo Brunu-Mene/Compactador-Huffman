@@ -1,5 +1,6 @@
 #include "../include/tArvore.h"
 #include "../include/tDescompacta.h"
+//tes
 
 int main(int argc, char **argv){
     if (argc < 1){
